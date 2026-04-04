@@ -38,7 +38,6 @@ public class ThirdPersonCameraController : MonoBehaviour
     private void HandleMouseScroll(InputAction.CallbackContext context)
     {
         scrollDelta = context.ReadValue<Vector2>();
-        Debug.Log($"Scroll Delta: {scrollDelta}");
     }
 
     void Update()
