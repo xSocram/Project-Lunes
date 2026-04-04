@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(CinemachineCamera))]
 public class ThirdPersonCameraController : MonoBehaviour
 {
     [Header("Camera Variables")]

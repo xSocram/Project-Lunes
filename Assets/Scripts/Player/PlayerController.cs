@@ -3,32 +3,52 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]private float upForce = 200f;
-    [SerializeField] private float moveForce =10f;
+    [Header("Movement Variables")]
+    [SerializeField]private float jumpHeight = 2f;
+    [SerializeField] private float speed =5f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float sprintMultiplier = 1.5f;
+    private bool isSprinting;
 
     private Vector2 moveInput;
-    private Vector3 moveDirection;
+    private Vector3 velocity;
 
+    [Header("Camera Stuff")]
     [SerializeField] private Transform cameraTransform;
     [SerializeField] private bool shouldFaceMoveDirection;
 
     [Header("Reference")]
-    private Rigidbody rb;
-    private PlayerInput playerInput;
-
-
+    private CharacterController controller;
+    private Animator animator;
 
 
     private void Awake()
+    {   
+        controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+    }
+    public void OnMove(InputAction.CallbackContext context)
     {
-        rb = GetComponent<Rigidbody>();
-        playerInput = GetComponent<PlayerInput>();
+        moveInput = context.ReadValue<Vector2>();
+        
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if(context.performed && controller.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            animator.SetBool("isJumping", true);
+        }
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        isSprinting = context.ReadValueAsButton();
     }
 
     private void Update()
     {
-        moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
 
@@ -38,28 +58,29 @@ public class PlayerController : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        moveDirection = forward * moveInput.y + right * moveInput.x;
+        Vector3 move = forward * moveInput.y + right * moveInput.x;
 
-        if (shouldFaceMoveDirection && moveDirection != Vector3.zero)
+        float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
+
+        if (move.magnitude > 0.1f)
         {
-            transform.forward = moveDirection;
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
 
-    }
+        controller.Move(move * currentSpeed * Time.deltaTime);
 
-    private void FixedUpdate()
-    {
-        rb.AddForce(moveDirection * moveForce);
-    }
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
 
+        float targetVelocity = isSprinting ? 1f : 0.5f;
+        float finalVelocity = moveInput.magnitude * targetVelocity;
+        animator.SetFloat("velocity", finalVelocity);
 
-    public void Jump(InputAction.CallbackContext cb)
-    {
-        if (cb.performed)
+        if (controller.isGrounded && velocity.y < 0)
         {
-            rb.AddForce(Vector3.up * upForce);
-        }      
+            velocity.y = -2f;
+            animator.SetBool("isJumping", false);
+        }
     }
-
-    
 }
