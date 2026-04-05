@@ -1293,6 +1293,7 @@ GameObject:
   - component: {fileID: 6503991209925991239}
   - component: {fileID: 2672120503491242530}
   - component: {fileID: 8331794365816220420}
+  - component: {fileID: 8092717718228350501}
   m_Layer: 0
   m_Name: ZombieEnemy
   m_TagString: Untagged
@@ -1415,6 +1416,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FSM
   currentState: 0
+--- !u!95 &8092717718228350501
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173888359274315175}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cab8e7c21a9d53b44a8bc6d017077889, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6244525030861240313
 GameObject:
   m_ObjectHideFlags: 0

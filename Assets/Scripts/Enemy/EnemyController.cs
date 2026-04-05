@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     LineOfSight los;
     [SerializeField] private GameObject player;
     [SerializeField] private Transform eyePoint;
+    private Animator animator;
     private CharacterController controller;
     private FSM fsm;
 
@@ -15,13 +16,35 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float attackCooldown = 1.5f;
+    private float lastAttackTime;
     private Vector3 velocity;
+
+    private IState patrolState;
+    private IState chaseState;
+    private IState attackState;
+
+    private IState currentState;
+
+    [Header("Getter")]
+    public Animator Animator => animator;
 
     private void Awake()
     {
         los = GetComponent<LineOfSight>();
         controller = GetComponent<CharacterController>();
         fsm = GetComponent<FSM>();
+        animator = GetComponent<Animator>();
+
+        patrolState = new PatrolState(this);
+        chaseState = new ChaseState(this);
+        attackState = new AttackState(this);
+    }
+
+    private void Start()
+    {
+        ChangeState(fsm.currentState);
+        fsm.SaveState();
     }
 
     private void Update()
@@ -37,39 +60,50 @@ public class EnemyController : MonoBehaviour
 
         bool isInRange = flatDirection.magnitude < attackRange;
 
-        fsm.UpdateState(canSeePlayer,isInRange);
+        fsm.UpdateState(canSeePlayer, isInRange);
 
-        ExecuteState();
+        if (fsm.HasStateChanged())
+        {
+            ChangeState(fsm.currentState);
+            fsm.SaveState();
+        }
 
+        currentState?.Update();
     }
 
-    private void ExecuteState()
+    private void ChangeState(FSM.EnemyState newState)
     {
-        switch (fsm.currentState)
+        currentState?.Exit();
+        switch (newState)
         {
             case FSM.EnemyState.Patrol:
-                Patrol();
+                currentState = patrolState;
                 break;
-
             case FSM.EnemyState.Chase:
-                MoveToPlayer();
+                currentState = chaseState;
                 break;
-
             case FSM.EnemyState.Attack:
-                Attack();
+                currentState = attackState;
                 break;
         }
+        currentState.Enter();
     }
 
-    private void Attack()
+    public void Attack()
     {
+        lastAttackTime = Time.time;
+
         Debug.Log("ATTACK");
 
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        direction.y = 0;
+        RotateToPlayer();
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        animator.SetTrigger("Attack");
+        animator.SetFloat("velocity", 0f);
+    }
+
+    public bool CanAttack()
+    {
+        return Time.time >= lastAttackTime + attackCooldown;
     }
 
     private void OnDrawGizmosSelected()
@@ -78,18 +112,42 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(eyePoint.position, attackRange);
     }
 
-    private void Patrol()
+    public void Patrol()
     {
         //Debug.Log("Patrolling...");
+        animator.SetFloat("velocity", 0.5f);    
     }
 
-    private void MoveToPlayer()
-    { 
-        Vector3 direction = (player.transform.position - transform.position).normalized;
+    public void MoveToPlayer()
+    {
+        Vector3 direction = GetDirectionToPlayer();
+
+        RotateToPlayer();
+
+        controller.Move(direction * speed * Time.deltaTime);
+
+        animator.SetFloat("velocity", 1f);
+    }
+
+    private Vector3 GetDirectionToPlayer()
+    {
+        Vector3 direction = (player.transform.position - transform.position);
         direction.y = 0;
+        return direction.normalized;
+    }
+
+    public void RotateToPlayer()
+    {
+        Vector3 direction = GetDirectionToPlayer();
+
+        if (direction == Vector3.zero) return;
+
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        controller.Move(direction * speed * Time.deltaTime); 
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            rotationSpeed * Time.deltaTime
+        );
     }
 
     private void ApplyGravity()

@@ -10,6 +10,17 @@ public class FSM : MonoBehaviour
     }
 
     public EnemyState currentState = EnemyState.Patrol;
+    private EnemyState lastState;
+
+    public bool HasStateChanged()
+    {
+        return currentState != lastState;
+    }
+
+    public void SaveState()
+    {
+        lastState = currentState;
+    }
 
     public void UpdateState(bool canSeePlayer, bool isCloseToPlayer)
     {
