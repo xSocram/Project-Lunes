@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float sprintMultiplier = 1.5f;
     private bool isSprinting;
+    private bool isInCombat;
 
     private Vector2 moveInput;
     private Vector3 velocity;
@@ -47,6 +48,11 @@ public class PlayerController : MonoBehaviour
         isSprinting = context.ReadValueAsButton();
     }
 
+    public void OnCombat(InputAction.CallbackContext context)
+    {
+        isInCombat = context.ReadValueAsButton();
+    }
+
     private void Update()
     {
         Vector3 forward = cameraTransform.forward;
@@ -58,14 +64,29 @@ public class PlayerController : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
+        animator.SetBool("isInCombat", isInCombat);
+
         Vector3 move = forward * moveInput.y + right * moveInput.x;
+        move.Normalize();
 
-        float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
+        float currentSpeed = isInCombat ? speed : (isSprinting ? speed * sprintMultiplier : speed);
 
-        if (move.magnitude > 0.1f)
+        if (isInCombat)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(move);
+            Vector3 camForward = cameraTransform.forward;
+            camForward.y = 0;
+            camForward.Normalize();
+
+            Quaternion targetRotation = Quaternion.LookRotation(camForward);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+        else
+        {
+            if (move.magnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(move);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+            }
         }
 
         controller.Move(move * currentSpeed * Time.deltaTime);
@@ -73,9 +94,17 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        float targetVelocity = isSprinting ? 1f : 0.5f;
-        float finalVelocity = moveInput.magnitude * targetVelocity;
-        animator.SetFloat("velocity", finalVelocity);
+        if (isInCombat)
+        {
+            animator.SetFloat("moveX", moveInput.x, 0.1f, Time.deltaTime);
+            animator.SetFloat("moveY", moveInput.y, 0.1f, Time.deltaTime);
+        }
+        else
+        {
+            float targetVelocity = isSprinting ? 1f : 0.5f;
+            float finalVelocity = moveInput.magnitude * targetVelocity;
+            animator.SetFloat("velocity", finalVelocity, 0.1f, Time.deltaTime);
+        }
 
         if (controller.isGrounded && velocity.y < 0)
         {
