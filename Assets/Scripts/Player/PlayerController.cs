@@ -9,7 +9,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float sprintMultiplier = 1.5f;
     private bool isSprinting;
+
+    [Header("Combat Variables")]
     private bool isInCombat;
+    private bool isBlocking;
+    private bool isAttacking;
+    private float timeSinceLastAttack;
+    private int currentAttackCombo = 0;
+    private bool canCombo;
 
     private Vector2 moveInput;
     private Vector3 velocity;
@@ -53,8 +60,74 @@ public class PlayerController : MonoBehaviour
         isInCombat = context.ReadValueAsButton();
     }
 
+    public void OnBlock(InputAction.CallbackContext context)
+    {
+        isBlocking = context.ReadValueAsButton();
+
+        Debug.Log("OnBlock triggered | value: " + isBlocking + " | phase: " + context.phase);
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+
+        if (isAttacking)
+        {
+            if (canCombo)
+            {
+                canCombo = false;
+                Attack();
+            }
+
+            return;
+        }
+
+        Attack();
+    }
+
+    private void Attack()
+    {
+        if (!isInCombat || !controller.isGrounded) return;
+        if (isBlocking) return;
+
+        if (timeSinceLastAttack > 1.5f)
+            currentAttackCombo = 0;
+
+        currentAttackCombo++;
+
+        if (currentAttackCombo > 3)
+            currentAttackCombo = 1;
+
+        isAttacking = true;
+        canCombo = false;
+
+        animator.SetTrigger("attack" + currentAttackCombo);
+
+        timeSinceLastAttack = 0f;
+    }
+
+    public void EnableCombo()
+    {
+        canCombo = true;
+    }
+
+    public void ResetAttack()
+    {
+        isAttacking = false;
+        canCombo = false;
+    }
+
+    private void Block()
+    {
+        bool canBlock = isInCombat && isBlocking;
+
+        animator.SetBool("block", canBlock);
+    }
+
     private void Update()
     {
+        timeSinceLastAttack += Time.deltaTime;
+
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
 
@@ -68,6 +141,13 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = forward * moveInput.y + right * moveInput.x;
         move.Normalize();
+
+        bool canBlock = isInCombat && isBlocking;
+
+        if (canBlock)
+        {
+            move = Vector3.zero;
+        }
 
         float currentSpeed = isInCombat ? speed : (isSprinting ? speed * sprintMultiplier : speed);
 
@@ -106,10 +186,12 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("velocity", finalVelocity, 0.1f, Time.deltaTime);
         }
 
+        Block();
+
         if (controller.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
             animator.SetBool("isJumping", false);
-        }
+        } 
     }
 }
