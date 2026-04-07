@@ -20,6 +20,7 @@ public class ChaseState : IState
 
     public void Update()
     {
-        enemy.MoveToPlayer();
+        //enemy.MoveToPlayer();
+        enemy.PursuePlayer();
     }
 }

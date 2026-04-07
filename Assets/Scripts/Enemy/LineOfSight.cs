@@ -25,6 +25,11 @@ public class LineOfSight : MonoBehaviour
         return Physics.Raycast(eyePoint.position,directionToTarget,directionToTarget.magnitude,obs);
     }
 
+    public bool CheckForwardObstacle(Transform self, Vector3 direction, float distance)
+    {
+        return Physics.Raycast(eyePoint.position, direction, distance, obs);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -33,8 +38,6 @@ public class LineOfSight : MonoBehaviour
             Vector3 rightBoundary = Quaternion.Euler(0, angleThreshold / 2, 0) * transform.forward * sightRange;
             Gizmos.DrawLine(eyePoint.position, transform.position + leftBoundary);
             Gizmos.DrawLine(eyePoint.position, transform.position + rightBoundary);
-
-
     }
 
 }

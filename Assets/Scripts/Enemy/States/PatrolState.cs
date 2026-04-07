@@ -11,7 +11,7 @@ public class PatrolState : IState
 
     public void Enter()
     {
-        enemy.Animator.SetFloat("velocity", 0.5f);
+        enemy.ResetWanderTimer();
     }
 
     public void Exit()
@@ -21,6 +21,6 @@ public class PatrolState : IState
 
     public void Update()
     {
-        
+        enemy.Wander(0.5f);
     }
 }

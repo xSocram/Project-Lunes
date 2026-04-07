@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Animator animator;
 
+    private Vector3 lastPosition;
+    public Vector3 Velocity {  get; private set; }
 
     private void Awake()
     {   
@@ -38,7 +40,6 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -63,8 +64,6 @@ public class PlayerController : MonoBehaviour
     public void OnBlock(InputAction.CallbackContext context)
     {
         isBlocking = context.ReadValueAsButton();
-
-        Debug.Log("OnBlock triggered | value: " + isBlocking + " | phase: " + context.phase);
     }
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -117,81 +116,103 @@ public class PlayerController : MonoBehaviour
         canCombo = false;
     }
 
-    private void Block()
+    private void Block(bool isBusy)
     {
-        bool canBlock = isInCombat && isBlocking;
+        bool canBlock = isInCombat && isBlocking && !isBusy;
 
         animator.SetBool("block", canBlock);
     }
 
     private void Update()
     {
+        bool isBusy = animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack") ||
+              (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).IsTag("Attack"));
+
         timeSinceLastAttack += Time.deltaTime;
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+        Vector3 camForward = cameraTransform.forward;
+        Vector3 camRight = cameraTransform.right;
 
-        forward.y = 0;
-        right.y = 0;
+        camForward.y = 0;
+        camRight.y = 0;
 
-        forward.Normalize();
-        right.Normalize();
+        camForward.Normalize();
+        camRight.Normalize();
 
         animator.SetBool("isInCombat", isInCombat);
 
-        Vector3 move = forward * moveInput.y + right * moveInput.x;
-        move.Normalize();
+        Vector3 move = camForward * moveInput.y + camRight * moveInput.x;
+        if (move.sqrMagnitude > 1f)
+            move.Normalize();
 
         bool canBlock = isInCombat && isBlocking;
 
-        if (canBlock)
+        if (canBlock || isBusy)
         {
             move = Vector3.zero;
         }
 
-        float currentSpeed = isInCombat ? speed : (isSprinting ? speed * sprintMultiplier : speed);
+        float currentSpeed = speed;
+
+        if (!isInCombat && isSprinting)
+            currentSpeed *= sprintMultiplier;
+
+        Vector3 lookDirection = isInCombat ? camForward : move;
+
+        Vector3 localMove = transform.InverseTransformDirection(move);
 
         if (isInCombat)
         {
-            Vector3 camForward = cameraTransform.forward;
-            camForward.y = 0;
-            camForward.Normalize();
+            animator.SetFloat("moveX", localMove.x, 0.1f, Time.deltaTime);
+            animator.SetFloat("moveY", localMove.z, 0.1f, Time.deltaTime);
+        }
+        else
+        {
+            float speedPercent = isSprinting ? 1f : 0.5f;
+            float velocityAnim = moveInput.magnitude * speedPercent;
 
-            Quaternion targetRotation = Quaternion.LookRotation(camForward);
+            if (isBusy)
+                velocityAnim = 0f;
+
+            animator.SetFloat("velocity", velocityAnim, 0.1f, Time.deltaTime);
+        }
+
+        if (lookDirection.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
+
+
+        Vector3 movement = Vector3.zero;
+
+        if (!isAttacking)
+        {
+            movement = move * currentSpeed + velocity;
+            velocity.y += gravity * Time.deltaTime;
+        }
         else
         {
-            if (move.magnitude > 0.1f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(move);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
-            }
+            velocity.y = 0f;
         }
 
-        controller.Move(move * currentSpeed * Time.deltaTime);
+        controller.Move(movement * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-
-        if (isInCombat)
+        if (isBusy)
         {
-            animator.SetFloat("moveX", moveInput.x, 0.1f, Time.deltaTime);
-            animator.SetFloat("moveY", moveInput.y, 0.1f, Time.deltaTime);
-        }
-        else
-        {
-            float targetVelocity = isSprinting ? 1f : 0.5f;
-            float finalVelocity = moveInput.magnitude * targetVelocity;
-            animator.SetFloat("velocity", finalVelocity, 0.1f, Time.deltaTime);
+            isBlocking = false;
         }
 
-        Block();
+        Block(isBusy);
 
         if (controller.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
             animator.SetBool("isJumping", false);
         } 
+
+        Velocity = (transform.position - lastPosition) / Time.deltaTime;
+        lastPosition = transform.position;
     }
 }
