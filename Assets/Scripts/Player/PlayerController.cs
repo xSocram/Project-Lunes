@@ -31,9 +31,12 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 lastPosition;
     public Vector3 Velocity {  get; private set; }
+    public static PlayerController instance { get;private set; }
 
     private void Awake()
     {   
+        instance = this;
+
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }

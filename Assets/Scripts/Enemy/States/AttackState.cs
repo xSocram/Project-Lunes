@@ -22,7 +22,8 @@ public class AttackState : IState
 
     public void Update()
     {
-        //enemy.RotateToPlayer();
+        if (enemy.IsAttacking)
+            return;
 
         if (enemy.CanAttack())
         {

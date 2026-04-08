@@ -36,8 +36,8 @@ public class LineOfSight : MonoBehaviour
         Gizmos.DrawWireSphere(eyePoint.position, sightRange);
             Vector3 leftBoundary = Quaternion.Euler(0, -angleThreshold / 2, 0) * transform.forward * sightRange;
             Vector3 rightBoundary = Quaternion.Euler(0, angleThreshold / 2, 0) * transform.forward * sightRange;
-            Gizmos.DrawLine(eyePoint.position, transform.position + leftBoundary);
-            Gizmos.DrawLine(eyePoint.position, transform.position + rightBoundary);
+        Gizmos.DrawLine(eyePoint.position, eyePoint.position + leftBoundary);
+        Gizmos.DrawLine(eyePoint.position, eyePoint.position + rightBoundary);
     }
 
 }

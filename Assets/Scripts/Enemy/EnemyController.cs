@@ -27,6 +27,7 @@ public class EnemyController : MonoBehaviour
 
     private float lastAttackTime;
     private Vector3 velocity;
+    private bool isAttacking;   
 
     private IState patrolState;
     private IState chaseState;
@@ -38,6 +39,7 @@ public class EnemyController : MonoBehaviour
     public Animator Animator => animator;
     public GameObject Player => player;
     public Vector3 playerVelocity => playerController.Velocity;
+    public bool IsAttacking => isAttacking;
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class EnemyController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         fsm = GetComponent<FSM>();
         animator = GetComponent<Animator>();
+
 
         patrolState = new PatrolState(this);
         chaseState = new ChaseState(this);
@@ -59,6 +62,10 @@ public class EnemyController : MonoBehaviour
     {
         ChangeState(fsm.currentState);
         fsm.SaveState();
+
+
+        playerController = PlayerController.instance;
+        player = playerController.gameObject;
     }
 
     private void Update()
@@ -74,12 +81,15 @@ public class EnemyController : MonoBehaviour
 
         bool isInRange = flatDirection.magnitude < attackRange;
 
-        fsm.UpdateState(canSeePlayer, isInRange);
-
-        if (fsm.HasStateChanged())
+        if (!isAttacking)
         {
-            ChangeState(fsm.currentState);
-            fsm.SaveState();
+            fsm.UpdateState(canSeePlayer, isInRange);
+
+            if (fsm.HasStateChanged())
+            {
+                ChangeState(fsm.currentState);
+                fsm.SaveState();
+            }
         }
 
         currentState?.Update();
@@ -106,11 +116,17 @@ public class EnemyController : MonoBehaviour
         currentState.Enter();
     }
 
-    public void Move(Vector3 dir, float moveSpeed ,float animMultiplier = 1f)
+    public void Move(Vector3 dir, float moveSpeed, float animMultiplier = 1f)
     {
+        if (isAttacking)
+        {
+            animator.SetFloat("velocity", 0f);
+            return;
+        }
+
         controller.Move(dir * moveSpeed * Time.deltaTime);
 
-        if(dir != Vector3.zero)
+        if (dir != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(dir);
 
@@ -119,8 +135,8 @@ public class EnemyController : MonoBehaviour
                 targetRotation,
                 rotationSpeed * Time.deltaTime
             );
-
         }
+
         animator.SetFloat("velocity", dir.magnitude * animMultiplier);
     }
 
@@ -176,6 +192,16 @@ public class EnemyController : MonoBehaviour
         return Time.time >= lastAttackTime + attackCooldown;
     }
 
+    public void StartAttack()
+    {
+        isAttacking = true;
+    }
+
+    public void EndAttack()
+    {
+        isAttacking = false;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -184,11 +210,15 @@ public class EnemyController : MonoBehaviour
 
     public void PursuePlayer()
     {
-        Vector3 dir = 
-            SteeringBehaviours.Pursue(transform, player.transform, playerVelocity, 0.5f) * 0.7f +
-            SteeringBehaviours.Seek(transform, player.transform.position) * 0.3f;
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        float t = Mathf.Clamp01(distance / 10f);
 
-        dir = dir.normalized;
+        Vector3 dir =
+            SteeringBehaviours.Pursue(transform, player.transform, playerVelocity, 0.5f) * t +
+            SteeringBehaviours.Seek(transform, player.transform.position) * (1 - t);
+
+        if (dir.sqrMagnitude > 1f)
+            dir.Normalize();
 
         Move(dir,chaseSpeed);
     }
