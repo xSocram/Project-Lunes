@@ -133,6 +133,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 523430292821508413}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3324936673421930228}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7924102838254337599}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4583813433644449537}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 599962116468037870}
   m_SourcePrefab: {fileID: 100100000, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
 --- !u!1 &6080968507366027777 stripped
 GameObject:
@@ -166,8 +178,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583779950098488101}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4583813433644449537}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -182,8 +194,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583779950098488101}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4583813433644449537}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -202,8 +214,8 @@ MonoBehaviour:
     m_ActionName: 'CameraControls/MouseZoom[/Mouse/scroll]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583779950098488101}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4583813433644449537}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
@@ -218,8 +230,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583779950098488101}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4583813433644449537}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnCombat
         m_Mode: 0
         m_Arguments:
@@ -234,8 +246,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Combat[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583779950098488101}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4583813433644449537}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnAttack
         m_Mode: 0
         m_Arguments:
@@ -250,8 +262,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Attack[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583779950098488101}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4583813433644449537}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnBlock
         m_Mode: 0
         m_Arguments:
@@ -281,12 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24853272a9166749b0549661a81e964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  jumpHeight: 2
-  speed: 6
-  gravity: -9.81
-  sprintMultiplier: 1.5
-  cameraTransform: {fileID: 0}
-  shouldFaceMoveDirection: 1
 --- !u!143 &664969869432588323
 CharacterController:
   m_ObjectHideFlags: 0
@@ -357,6 +363,60 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3324936673421930228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080968507366027777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6d85621ad7d7347a0c13fa20417475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+--- !u!114 &7924102838254337599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080968507366027777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb1f9895a87d7d746a7b2c6854a6db70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+--- !u!114 &4583813433644449537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080968507366027777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62dce40335ea4043862cfe05a0faa30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
+--- !u!114 &599962116468037870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080968507366027777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0d528247c41394a878a3c784f42864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  jumpHeight: 1.5
+  speed: 6
+  gravity: -9.81
+  sprintMultiplier: 1.5
+  rotationSpeed: 10
+  cameraTransform: {fileID: 0}
 --- !u!4 &6856765681490454715 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c7bcb1b42cd82db469bfca0ae752f9f8, type: 3}
