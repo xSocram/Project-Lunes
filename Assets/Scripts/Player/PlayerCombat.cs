@@ -16,6 +16,8 @@ public class PlayerCombat : MonoBehaviour
     public bool IsBlocking => isBlocking;
     public bool IsAttacking => isAttacking;
 
+    [SerializeField] private Collider weaponCollider;
+
     private void Awake()
     {
         player = GetComponent<PlayerController>();
@@ -77,5 +79,15 @@ public class PlayerCombat : MonoBehaviour
     {
         bool canBlock = isInCombat && isBlocking && !isAttacking;
         player.Animator.SetBool("block", canBlock);
+    }
+
+    public void EnableWeaponCollider()
+    {
+        weaponCollider.enabled = true;
+    }
+
+    public void DisableWeaponCollider()
+    {
+        weaponCollider.enabled = false;
     }
 }

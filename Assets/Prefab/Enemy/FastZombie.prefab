@@ -1015,12 +1015,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4005077617776973839}
-  - component: {fileID: 3301900740081392320}
   - component: {fileID: 577629563759440040}
   - component: {fileID: 2875034905375032229}
   - component: {fileID: 2499341433106412871}
   - component: {fileID: 153576377652559980}
   - component: {fileID: 155193851658192370}
+  - component: {fileID: -7170106662918341624}
   m_Layer: 0
   m_Name: FastZombie
   m_TagString: Untagged
@@ -1046,29 +1046,6 @@ Transform:
   - {fileID: 5895317757481790134}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &3301900740081392320
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4082092820412507067}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4
-  m_Height: 1.65
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!143 &577629563759440040
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1171,6 +1148,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7170106662918341624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4082092820412507067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85d4f8c53f9877f47a151b527695935c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthController
+  health: 100
 --- !u!1 &4149890873616735960
 GameObject:
   m_ObjectHideFlags: 0
