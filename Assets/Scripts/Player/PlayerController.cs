@@ -15,8 +15,14 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 lastPosition;
 
+    private HealthController health;
+    private bool isDead;
+    public bool IsDead => isDead;
+
     private void Awake()
     {
+        if(isDead) return;
+
         instance = this;
 
         Controller = GetComponent<CharacterController>();
@@ -25,6 +31,12 @@ public class PlayerController : MonoBehaviour
         Movement = GetComponent<PlayerMovement>();
         Combat = GetComponent<PlayerCombat>();
         Animations = GetComponent<PlayerAnimationController>();
+
+        health = GetComponent<HealthController>();
+    }
+    private void Start()
+    {
+        health.OnDeath += HandleDeath;
     }
 
     private void Update()
@@ -36,5 +48,17 @@ public class PlayerController : MonoBehaviour
 
         Velocity = (transform.position - lastPosition) / Time.deltaTime;
         lastPosition = transform.position;
+    }
+
+    private void HandleDeath()
+    {
+        isDead = true;
+
+        Movement.enabled = false;
+        Combat.enabled = false;
+
+        Controller.enabled = false;
+
+        Animator.SetTrigger("die");
     }
 }

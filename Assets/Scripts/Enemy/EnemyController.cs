@@ -4,13 +4,14 @@ public class EnemyController : MonoBehaviour
 {
     [Header("References")]
     LineOfSight los;
-    [SerializeField] private GameObject player;//reference to the player object
-    [SerializeField] private Transform eyePoint;//reference to the point from which the enemy sees
+    [SerializeField] private GameObject player;
+    [SerializeField] private Transform eyePoint;
     [SerializeField] private PlayerController playerController;
+    [SerializeField] private Collider damageCollider;
 
     private Animator animator;
     private CharacterController controller;
-    private FSM fsm;//finite state machine
+    private FSM fsm;
 
     [Header("Settings")]
     [SerializeField] private float patrolSpeed;
@@ -35,6 +36,10 @@ public class EnemyController : MonoBehaviour
     private IState idleState;
     private IState currentState;
 
+    private HealthController health;
+    private IState deathState;
+    private bool isDead;
+
     [Header("Getter")]
     public Animator Animator => animator;
     public GameObject Player => player;
@@ -47,12 +52,14 @@ public class EnemyController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         fsm = GetComponent<FSM>();
         animator = GetComponent<Animator>();
+        health = GetComponent<HealthController>();
 
 
         patrolState = new PatrolState(this);
         chaseState = new ChaseState(this);
         attackState = new AttackState(this);
         idleState = new IdleState(this);
+        deathState = new DeathState(this);
 
         wanderDir = transform.forward;
         wanderTimer = 0f;
@@ -66,20 +73,28 @@ public class EnemyController : MonoBehaviour
 
         playerController = PlayerController.instance;
         player = playerController.gameObject;
+        health.OnDeath += handleDeath;
     }
 
     private void Update()
     {
+        if (isDead)
+        {
+            currentState?.Update();
+            return;
+        }
+
         ApplyGravity();
 
-        bool canSeePlayer = los.CheckRange(transform, player.transform) && 
-                            los.CheckAngle(transform, player.transform) &&
+        bool canSeePlayer = !playerController.IsDead &&
+                             los.CheckRange(transform, player.transform) &&
+                             los.CheckAngle(transform, player.transform) &&
                             !los.CheckObstacles(transform, player.transform);
 
         Vector3 flatDirection = player.transform.position - transform.position;
         flatDirection.y = 0;
 
-        bool isInRange = flatDirection.magnitude < attackRange;
+        bool isInRange = flatDirection.magnitude < attackRange && !playerController.IsDead;
 
         if (!isAttacking)
         {
@@ -181,6 +196,8 @@ public class EnemyController : MonoBehaviour
 
     public void Attack()
     {
+        if(playerController.IsDead) return;
+
         lastAttackTime = Time.time;
 
         animator.SetTrigger("Attack");
@@ -189,6 +206,8 @@ public class EnemyController : MonoBehaviour
 
     public bool CanAttack()
     {
+        if(playerController.IsDead) return false;
+
         return Time.time >= lastAttackTime + attackCooldown;
     }
 
@@ -200,6 +219,16 @@ public class EnemyController : MonoBehaviour
     public void EndAttack()
     {
         isAttacking = false;
+    }
+
+    public void EnableDamageCollider()
+    {
+        damageCollider.enabled = true;
+    }
+
+    public void DisableDamageCollider()
+    {
+        damageCollider.enabled = false;
     }
 
     private void OnDrawGizmosSelected()
@@ -234,5 +263,16 @@ public class EnemyController : MonoBehaviour
 
         Vector3 gravityMove = new Vector3(0, velocity.y, 0);
         controller.Move(gravityMove * Time.deltaTime);
+    }
+
+    private void handleDeath()
+    {
+        isDead = true;
+
+        controller.enabled = false;
+
+        currentState?.Exit();
+        currentState = deathState;
+        currentState.Enter();
     }
 }

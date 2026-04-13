@@ -1296,7 +1296,7 @@ GameObject:
   - component: {fileID: -4724735400587881765}
   m_Layer: 0
   m_Name: ZombieEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1359,6 +1359,7 @@ MonoBehaviour:
   player: {fileID: 0}
   eyePoint: {fileID: 479498177465051692}
   playerController: {fileID: 0}
+  damageCollider: {fileID: 3246276238594700380}
   patrolSpeed: 2
   chaseSpeed: 4
   rotationSpeed: 2
@@ -1433,6 +1434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d4f8c53f9877f47a151b527695935c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthController
+  team: 1
   health: 100
 --- !u!1 &6244525030861240313
 GameObject:
@@ -1941,6 +1943,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2558948766041627270}
+  - component: {fileID: 3246276238594700380}
+  - component: {fileID: 7023990171442623304}
   m_Layer: 0
   m_Name: Base HumanRArmPalm
   m_TagString: Untagged
@@ -1968,6 +1972,40 @@ Transform:
   - {fileID: 4384991589959046985}
   m_Father: {fileID: 8773115426636358501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3246276238594700380
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530197789598525208}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.31574535, y: 0.16793135, z: 0.3047791}
+  m_Center: {x: -0.17260872, y: -0.045302343, z: 0.0406545}
+--- !u!114 &7023990171442623304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8530197789598525208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c6a77aa65974e42bd818be9bbc8610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DealDamage
+  damage: 5
 --- !u!1 &8653836288077612797
 GameObject:
   m_ObjectHideFlags: 0

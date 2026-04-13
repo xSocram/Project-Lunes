@@ -6,10 +6,14 @@ public class DealDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        var healthController = other.GetComponent<HealthController>();
-        if (healthController != null)
-        {
-            healthController.TakeDamage(damage);
-        }
+        var otherHealth = other.GetComponent<HealthController>();
+        var myHealth = GetComponentInParent<HealthController>();
+
+        if (otherHealth == null || myHealth == null) return;
+
+        if (otherHealth.Team == myHealth.Team) return;
+
+        Debug.Log($"Haciendo {damage} de daño a: {other.gameObject.name}");
+        otherHealth.TakeDamage(damage);
     }
 }

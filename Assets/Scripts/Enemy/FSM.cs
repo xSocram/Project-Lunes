@@ -7,7 +7,8 @@ public class FSM : MonoBehaviour
         Idle,
         Patrol,
         Chase,
-        Attack
+        Attack,
+        Dead
     }
 
     public EnemyState currentState = EnemyState.Idle;

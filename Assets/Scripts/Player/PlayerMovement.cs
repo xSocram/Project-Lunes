@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleMovement()
     {
+        if(!player.Controller.enabled) return;
+
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
 
