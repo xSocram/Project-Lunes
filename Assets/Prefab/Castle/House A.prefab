@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1190961272409393491}
   - component: {fileID: 8891663499800545307}
   - component: {fileID: 6525601540000001117}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: House A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 1946281316970939952}
   - component: {fileID: 8453674634238146074}
   - component: {fileID: 565823671336049812}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 7070638932822518050}
   - component: {fileID: 1537635678340966494}
   - component: {fileID: 2415978643196051189}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Simple Door Frame
       objectReference: {fileID: 0}
+    - target: {fileID: 67364546214547229, guid: 6336862f86e872944895b7c5569e9988, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6706009287307104831, guid: 6336862f86e872944895b7c5569e9988, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -410,6 +414,10 @@ PrefabInstance:
     - target: {fileID: 6706009287307104831, guid: 6336862f86e872944895b7c5569e9988, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953210772033995374, guid: 6336862f86e872944895b7c5569e9988, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

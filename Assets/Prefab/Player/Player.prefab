@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c6a77aa65974e42bd818be9bbc8610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DealDamage
-  damage: 10
+  damage: 25
+  effects: []
 --- !u!1001 &6386835938616446800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -546,6 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d4f8c53f9877f47a151b527695935c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthController
+  team: 0
+  maxHealth: 0
   health: 100
 --- !u!4 &6856765681490454715 stripped
 Transform:

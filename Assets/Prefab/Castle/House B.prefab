@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5350873326326761731}
   - component: {fileID: 8640765160303676295}
   - component: {fileID: 2318028775100459220}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 8105566262311454184}
   - component: {fileID: 5503323042922631215}
   - component: {fileID: 8292916275349410789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 2824818987026156686}
   - component: {fileID: 7987082542135985817}
   - component: {fileID: 251268207796179695}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: House B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,7 +353,7 @@ GameObject:
   - component: {fileID: 6991730187911794020}
   - component: {fileID: 7539996985168003438}
   - component: {fileID: 8994587753876718726}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 5485220140184481822}
   - component: {fileID: 7978042254639333205}
   - component: {fileID: 7199644726584311768}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Small Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,6 +617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Simple Door Frame
       objectReference: {fileID: 0}
+    - target: {fileID: 67364546214547229, guid: 6336862f86e872944895b7c5569e9988, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6706009287307104831, guid: 6336862f86e872944895b7c5569e9988, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
@@ -636,6 +640,10 @@ PrefabInstance:
     - target: {fileID: 6706009287307104831, guid: 6336862f86e872944895b7c5569e9988, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953210772033995374, guid: 6336862f86e872944895b7c5569e9988, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

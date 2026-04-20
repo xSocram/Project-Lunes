@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1050730810329174965}
   - component: {fileID: 5262233859138036174}
   - component: {fileID: 2490425143445267987}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Big Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 5886160078214889764}
   - component: {fileID: 6619882345600386557}
   - component: {fileID: 5509794087797467099}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tower A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 6284186462375788167}
   - component: {fileID: 8021124065880572998}
   - component: {fileID: 4489133881083648932}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 364746719311814653}
   - component: {fileID: 6392690414457079732}
   - component: {fileID: 2319357805546436576}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Big Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 3463602284985393381}
   - component: {fileID: 6923417309304976996}
   - component: {fileID: 2835548903036366706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
