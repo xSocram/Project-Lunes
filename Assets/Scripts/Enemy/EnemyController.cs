@@ -155,7 +155,7 @@ public class EnemyController : MonoBehaviour
         animator.SetFloat("velocity", dir.magnitude * animMultiplier);
     }
 
-    public void Wander(float animMultiplier)
+    public virtual void Wander(float animMultiplier)
     {
         wanderTimer -= Time.deltaTime;
 
