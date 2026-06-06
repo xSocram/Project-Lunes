@@ -1294,6 +1294,7 @@ GameObject:
   - component: {fileID: 8331794365816220420}
   - component: {fileID: 8092717718228350501}
   - component: {fileID: -4724735400587881765}
+  - component: {fileID: 8330716266871574539}
   m_Layer: 0
   m_Name: ZombieEnemy
   m_TagString: Enemy
@@ -1438,6 +1439,23 @@ MonoBehaviour:
   team: 1
   maxHealth: 100
   health: 100
+--- !u!114 &8330716266871574539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173888359274315175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7d309e3b61ead4ba17928bb5997140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dissolver
+  dissolveDuration: 5
+  dissolveAmount: 0
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 0, g: 0, b: 0, a: 0}
+  dissolveMaterial: {fileID: 2100000, guid: 30cb01e314e5a8d4899011b18cc5ca72, type: 2}
 --- !u!1 &6244525030861240313
 GameObject:
   m_ObjectHideFlags: 0

@@ -2337,6 +2337,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8330716266871574539, guid: 4226eab4b4ad1b94c9fec9517c1c9820, type: 3}
+      propertyPath: startColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8330716266871574539, guid: 4226eab4b4ad1b94c9fec9517c1c9820, type: 3}
+      propertyPath: startColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8330716266871574539, guid: 4226eab4b4ad1b94c9fec9517c1c9820, type: 3}
+      propertyPath: startColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9462,6 +9474,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8891663499800545307, guid: 57ef16ee7712da6409e8836bf6001e3c, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8891663499800545307, guid: 57ef16ee7712da6409e8836bf6001e3c, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c9774dc6bf14eeb4480902f6b400dd87, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14084,7 +14104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3324809170884571486, guid: 096831b2388f7ca40bd7d046b2c6d523, type: 3}
       propertyPath: damage
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3461463836710836409, guid: 096831b2388f7ca40bd7d046b2c6d523, type: 3}
       propertyPath: m_Layer

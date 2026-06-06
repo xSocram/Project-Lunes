@@ -39,12 +39,14 @@ public class EnemyController : MonoBehaviour
     private HealthController health;
     private IState deathState;
     private bool isDead;
+    private Dissolver dissolver;
 
     [Header("Getter")]
     public Animator Animator => animator;
     public GameObject Player => player;
     public Vector3 playerVelocity => playerController.Velocity;
     public bool IsAttacking => isAttacking;
+    public Dissolver Dissolver => dissolver;
 
     private void Awake()
     {
@@ -53,7 +55,7 @@ public class EnemyController : MonoBehaviour
         fsm = GetComponent<FSM>();
         animator = GetComponent<Animator>();
         health = GetComponent<HealthController>();
-
+        dissolver = GetComponent<Dissolver>();
 
         patrolState = new PatrolState(this);
         chaseState = new ChaseState(this);

@@ -1808,6 +1808,7 @@ GameObject:
   - component: {fileID: 1237196011529686320}
   - component: {fileID: 3004233015474654291}
   - component: {fileID: 7423854135873650077}
+  - component: {fileID: -2802494734415569097}
   m_Layer: 0
   m_Name: PoisonZombie
   m_TagString: Enemy
@@ -1952,6 +1953,23 @@ MonoBehaviour:
   team: 1
   maxHealth: 50
   health: 50
+--- !u!114 &-2802494734415569097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7845015623918339416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7d309e3b61ead4ba17928bb5997140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dissolver
+  dissolveDuration: 5
+  dissolveAmount: 0
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 0, g: 0, b: 0, a: 0}
+  dissolveMaterial: {fileID: 2100000, guid: 30cb01e314e5a8d4899011b18cc5ca72, type: 2}
 --- !u!1 &7934120824052682362
 GameObject:
   m_ObjectHideFlags: 0

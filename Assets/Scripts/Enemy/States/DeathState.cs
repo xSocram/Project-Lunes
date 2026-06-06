@@ -13,6 +13,7 @@ public class DeathState:IState
     {
         enemy.Animator.SetTrigger("die");
         enemy.DisableDamageCollider();
+        enemy.Dissolver.StartDissolve();
     }
 
     public void Update()

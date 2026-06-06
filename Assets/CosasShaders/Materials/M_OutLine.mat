@@ -51,11 +51,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _OutLineWidth: 0.005
+    - _OutLineWidth: 0.007
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Size: 1.03
     m_Colors:
-    - _Color: {r: 12.680702, g: 23.968628, b: 0, a: 1}
+    - _Color: {r: 12.680702, g: 23.968628, b: 32, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7809687414281162400}
   - component: {fileID: 3681850963342629228}
   - component: {fileID: 4745750625144629721}
+  - component: {fileID: -8355065688372060837}
   m_Layer: 0
   m_Name: PathZombie
   m_TagString: Enemy
@@ -234,6 +235,23 @@ MonoBehaviour:
   wanderInterval: 2
   currentNode: {fileID: 0}
   targetNode: {fileID: 0}
+--- !u!114 &-8355065688372060837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259772684313673137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7d309e3b61ead4ba17928bb5997140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Dissolver
+  dissolveDuration: 5
+  dissolveAmount: 0
+  startColor: {r: 1, g: 1, b: 1, a: 1}
+  endColor: {r: 0, g: 0, b: 0, a: 0}
+  dissolveMaterial: {fileID: 2100000, guid: 30cb01e314e5a8d4899011b18cc5ca72, type: 2}
 --- !u!1 &558112129620661862
 GameObject:
   m_ObjectHideFlags: 0
