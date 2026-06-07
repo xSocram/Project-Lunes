@@ -51,11 +51,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth: 10
+    - _Depth: 2
     - _FoamAmount: 0.3
     - _FoamCutOff: 1
     - _FoamScale: 50
-    - _FoamSpeed: 10
+    - _FoamSpeed: 0.3
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RefractionStregth: 1
