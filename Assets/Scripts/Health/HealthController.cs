@@ -37,6 +37,15 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    public void Heal(float amount)
+    {
+        if (isDead) return;
+
+        health += amount;
+        health = Mathf.Clamp(health, 0, maxHealth);
+        OnHealthChange?.Invoke(health, MaxHealth);
+    }
+
     private void Die()
     {
         OnDeath?.Invoke();

@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amp: 0.08
-    - _Float: 0.19
+    - _Float: 0.02
     - _Freq: 30
     - _QueueControl: 0
     - _QueueOffset: 0

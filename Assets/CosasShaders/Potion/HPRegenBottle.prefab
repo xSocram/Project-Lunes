@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cd9dbb9a40ab34aa964c271586ca10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiquidWobble
-  maxWobble: 0.01
+  maxWobble: 0.5
   wobbleSpeed: 0.01
   recovery: 1
 --- !u!1 &809498150981634475
@@ -118,6 +118,8 @@ GameObject:
   - component: {fileID: 3269792281145025303}
   - component: {fileID: 8690022890284164804}
   - component: {fileID: 9000973623701534172}
+  - component: {fileID: 848817903653537883}
+  - component: {fileID: -8055996136621037171}
   m_Layer: 0
   m_Name: HPRegenBottle
   m_TagString: Untagged
@@ -135,8 +137,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -3.63, y: 1.3944081, z: 0.27048874}
-  m_LocalScale: {x: 151.43147, y: 151.43146, z: 151.43146}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1969824924267300418}
   m_Father: {fileID: 0}
@@ -216,3 +218,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PotionWobble
   angle: 10
   speed: 2
+--- !u!65 &848817903653537883
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809498150981634475}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.010119114, y: 0.010120326, z: 0.016105015}
+  m_Center: {x: 0.00012054923, y: 0.0004220971, z: -0.0011556734}
+--- !u!114 &-8055996136621037171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809498150981634475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a52f2b99b3dd8d40b6203230219644c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthPotion
+  healAmount: 50

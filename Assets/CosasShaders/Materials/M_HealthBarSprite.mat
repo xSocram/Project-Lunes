@@ -42,7 +42,7 @@ Material:
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 47.93726, g: 0, b: 0, a: 1}
-    - _PlayerPos: {r: 11.51495, g: 0.0049999496, b: -16.934978, a: 0}
+    - _PlayerPos: {r: -8.616519, g: 0.00499989, b: 4.5835257, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2805651737803247630
