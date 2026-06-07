@@ -246,20 +246,6 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "07a98eec657942f1a7c5a1caa52b80b2"
-                },
-                "m_SlotId": 1
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "89d083f0542b4a07960634b93e109326"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
                     "m_Id": "0f13b50b939147e19808d30209e24716"
                 },
                 "m_SlotId": 2
@@ -672,7 +658,7 @@
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "c9bb3a7c1bc64e8c80c7e94dfb3a6883"
+                    "m_Id": "89d083f0542b4a07960634b93e109326"
                 },
                 "m_SlotId": 0
             }
@@ -680,13 +666,13 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "9122fcf19e36490d8316aaddfcde5f01"
+                    "m_Id": "8e0976d9233147abae90ef6e9952c6cd"
                 },
                 "m_SlotId": 2
             },
             "m_InputSlot": {
                 "m_Node": {
-                    "m_Id": "7d3bda51dc6b47f1aebce1cfbc161cd8"
+                    "m_Id": "c9bb3a7c1bc64e8c80c7e94dfb3a6883"
                 },
                 "m_SlotId": 0
             }
@@ -4018,7 +4004,7 @@
     "m_Title": "Texture",
     "m_Position": {
         "x": -2515.0,
-        "y": -1.0000267028808594
+        "y": -0.9999580383300781
     }
 }
 
@@ -4214,7 +4200,7 @@
     "m_ZTestMode": 4,
     "m_ZWriteControl": 0,
     "m_AlphaMode": 2,
-    "m_RenderFace": 2,
+    "m_RenderFace": 0,
     "m_AlphaClip": false,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
@@ -4525,7 +4511,6 @@
     "isMainTexture": false,
     "useTilingAndOffset": false,
     "useTexelSize": true,
-    "isHDR": false,
     "m_Modifiable": true,
     "m_DefaultType": 0
 }
@@ -6287,7 +6272,7 @@
     "m_Title": "DistortionEffect",
     "m_Position": {
         "x": -2408.0,
-        "y": 748.0000610351563
+        "y": 747.9999389648438
     }
 }
 
