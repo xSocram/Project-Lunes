@@ -58,7 +58,7 @@ Material:
     - _FoamSpeed: 0.3
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _RefractionStregth: 1
+    - _RefractionStregth: 0.2
     - _Scale: 1
     - _Speed: 0.1
     m_Colors:
