@@ -48,4 +48,11 @@ public static class SteeringBehaviours
 
         return Seek(self, futurePosition);
     }
+
+    public static Vector3 Flee(Transform self, Vector3 target)
+    {
+        Vector3 dir = self.position - target;
+        dir.y = 0;
+        return dir.normalized;
+    }
 }

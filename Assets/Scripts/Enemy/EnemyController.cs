@@ -239,7 +239,7 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(eyePoint.position, attackRange);
     }
 
-    public void PursuePlayer()
+    public virtual void PursuePlayer()
     {
         float distance = Vector3.Distance(transform.position, player.transform.position);
         float t = Mathf.Clamp01(distance / 10f);
